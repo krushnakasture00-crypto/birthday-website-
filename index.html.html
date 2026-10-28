@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Kartikii ✨</title>
+  
+  <!-- Romantic Fonts & Confetti CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #0d0714;
+      --card-bg: rgba(255, 255, 255, 0.07);
+      --border: rgba(255, 143, 171, 0.25);
+      --accent: #ff4d6d;
+      --accent-glow: rgba(255, 77, 109, 0.45);
+      --text: #fff0f3;
+      --gold: #ffe5b4;
+      --muted: #d0b8c6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #2b0f27 0%, var(--bg) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 70px;
+    }
+
+    /* Floating Petals / Hearts */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      bottom: -30px;
+      color: #ff758f;
+      opacity: 0.7;
+      animation: floatUp 8s linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+      20% { opacity: 0.8; }
+      100% { transform: translateY(-115vh) rotate(360deg) scale(1.1); opacity: 0; }
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 24px 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Music Player Button */
+    .music-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      background: rgba(20, 10, 25, 0.75);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 50px;
+      padding: 9px 16px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 55px 0 25px;
+    }
+    .hero .tagline {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: #ffccd5;
+      line-height: 1.2;
+      text-shadow: 0 0 25px var(--accent-glow);
+    }
+    .hero p {
+      color: var(--muted);
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+
+    /* Polaroid Gallery */
+    .section-title {
+      font-family: 'Caveat', cursive;
+      font-size: 2.1rem;
+      color: var(--gold);
+      text-align: center;
+      margin: 35px 0 20px;
+    }
+    .polaroid-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .polaroid {
+      background: #ffffff;
+      padding: 12px 12px 18px 12px;
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .polaroid:nth-child(odd) { transform: rotate(-1.5deg); }
+    .polaroid:nth-child(even) { transform: rotate(1.5deg); }
+    .polaroid:hover {
+      transform: scale(1.02) rotate(0deg);
+    }
+    .polaroid img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .polaroid span {
+      font-family: 'Caveat', cursive;
+      color: #2b1029;
+      font-size: 1.45rem;
+      display: inline-block;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    /* Letter Card */
+    .letter-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      margin: 35px 0;
+      position: relative;
+    }
+    .letter-title {
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      color: #ffccd5;
+      margin-bottom: 12px;
+    }
+    .letter-body {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: #ffe5ec;
+      font-weight: 300;
+    }
+
+    /* Tomorrow's Mystery Surprise Box */
+    .tomorrow-card {
+      background: linear-gradient(135deg, rgba(255, 77, 109, 0.15), rgba(43, 16, 41, 0.4));
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      margin: 35px 0;
+      box-shadow: 0 0 25px rgba(255, 77, 109, 0.2);
+    }
+    .tomorrow-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      padding: 4px 14px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .tomorrow-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .mystery-box {
+      font-size: 3rem;
+      margin: 15px 0;
+      cursor: pointer;
+      display: inline-block;
+      animation: pulse 1.6s infinite;
+      transition: transform 0.3s;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    .surprise-content {
+      display: none;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--gold);
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+    }
+
+    /* Reasons Box */
+    .reasons-box {
+      background: var(--card-bg);
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    .reason-text {
+      font-size: 1.05rem;
+      font-style: italic;
+      min-height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff0f3;
+      margin: 15px 0;
+    }
+    .btn {
+      background: linear-gradient(135deg, #ff4d6d, #c9184a);
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 4px 15px var(--accent-glow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:active { transform: scale(0.96); }
+    .celebrate-btn {
+      display: block;
+      margin: 35px auto 0;
+      padding: 16px 36px;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Petals/Hearts -->
+  <div class="bg-animation" id="bgAnimation"></div>
+
+  <!-- Audio Player -->
+  <button class="music-btn" onclick="toggleAudio()">
+    🎵 <span id="musicText">Play Music</span>
+  </button>
+  <audio id="bgSong" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="container">
+    <!-- Header -->
+    <section class="hero">
+      <div class="tagline">Today is for you</div>
+      <h1>Happy Birthday, Kartikii ✨</h1>
+      <p>To the girl whose presence turns everything brighter.</p>
+    </section>
+
+    <!-- Polaroid Photo Gallery -->
+    <div class="section-title">Little Glimpses of Your Magic 📸</div>
+    <section class="polaroid-grid">
+      <!-- Photo 1: Garba / Raas Rang -->
+      <div class="polaroid">
+        <img src="photo1.jpg" alt="Kartikii Festival Look">
+        <span>Radiance that outshines every festival light ✨</span>
+      </div>
+
+      <!-- Photo 2: Sibling / Sweet Moment -->
+      <div class="polaroid">
+        <img src="photo2.jpg" alt="Kartikii Warm Smile">
+        <span>The softest, kindest heart in every room 🤍</span>
+      </div>
+
+      <!-- Photo 3: Bougainvillea Flowers -->
+      <div class="polaroid">
+        <img src="photo3.jpg" alt="Kartikii Under Flowers">
+        <span>Blooming effortlessly, naturally beautiful 🌸</span>
+      </div>
+    </section>
+
+    <!-- Personalized Love Letter -->
+    <section class="letter-card">
+      <div class="letter-title">Dearest Kartikii,</div>
+      <p class="letter-body">
+        If you could see yourself the way the world sees you—especially the way <em>I</em> see you—you’d realize just how rare you are.<br><br>
+        Whether you’re dressed up glowing brighter than any festival, sharing warm laughs, or simply standing beneath pink flowers with that quiet, easy confidence... you make everything feel lighter and softer.<br><br>
+        May this new year bring you all the warmth, peace, and endless laughter that you give so freely to everyone around you. You deserve the absolute world.
+      </p>
+    </section>
+
+    <!-- Special Tomorrow Surprise Section -->
+    <section class="tomorrow-card">
+      <div class="tomorrow-badge">Special Alert ⏳</div>
+      <h2 class="tomorrow-title">A Surprise Awaits Tomorrow!</h2>
+      <p style="color: var(--muted); font-size: 0.9rem;">
+        Your birthday celebration doesn't end tonight. Tap the gift box below:
+      </p>
+      
+      <div class="mystery-box" id="mysteryBox" onclick="revealTomorrow()">🎁</div>
+      
+      <div class="surprise-content" id="surpriseMsg">
+        💌 <strong>Keep tomorrow free!</strong><br>
+        A special treat and a day planned just for you is on the way. The celebration has only just begun, Kartikii. Get ready! ✨
+      </div>
+    </section>
+
+    <!-- Interactive Reasons -->
+    <section class="reasons-box">
+      <h3 style="color: #ffccd5;">Reasons Why You’re Extraordinary 💌</h3>
+      <div class="reason-text" id="reasonDisplay">Tap below to reveal a sweet truth...</div>
+      <button class="btn" onclick="nextReason()">Tap for Another Reason</button>
+    </section>
+
+    <!-- Confetti Final Surprise -->
+    <button class="btn celebrate-btn" onclick="triggerCelebration()">Tap for Confetti! 🎉</button>
+  </div>
+
+  <script>
+    // 1. Personalized reasons for Kartikii
+    const reasons = [
+      "The warmth and effortless grace you carry wherever you go.",
+      "How naturally you light up in photographs—especially under pink bougainvilleas 🌸",
+      "That subtle, knowing smile you have when someone you care about is being silly.",
+      "Your genuine warmth and the pure way you make people around you feel comfortable.",
+      "How stunning you look in traditional outfits—truly a showstopper ✨",
+      "Simply because there is no one else like you, Kartikii."
+    ];
+    let currentIndex = 0;
+
+    function nextReason() {
+      const display = document.getElementById("reasonDisplay");
+      display.style.opacity = 0;
+      setTimeout(() => {
+        display.innerText = reasons[currentIndex];
+        display.style.opacity = 1;
+        currentIndex = (currentIndex + 1) % reasons.length;
+      }, 200);
+    }
+
+    // 2. Reveal Tomorrow Surprise
+    let revealed = false;
+    function revealTomorrow() {
+      const box = document.getElementById("mysteryBox");
+      const msg = document.getElementById("surpriseMsg");
+      
+      if (!revealed) {
+        box.innerText = "✨🔓✨";
+        msg.style.display = "block";
+        triggerCelebration();
+        revealed = true;
+      }
+    }
+
+    // 3. Confetti Burst
+    function triggerCelebration() {
+      confetti({
+        particleCount: 140,
+        spread: 90,
+        origin: { y: 0.6 },
+        colors: ['#ff4d6d', '#ff758f', '#ffe5b4', '#ffffff', '#c9184a']
+      });
+    }
+
+    // 4. Floating Petals
+    const bg = document.getElementById("bgAnimation");
+    const icons = ["🌸", "✨", "🤍", "🌷"];
+    function createPetal() {
+      const el = document.createElement("div");
+      el.classList.add("particle");
+      el.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.fontSize = Math.random() * 12 + 14 + "px";
+      el.style.animationDuration = Math.random() * 3 + 6 + "s";
+      bg.appendChild(el);
+
+      setTimeout(() => el.remove(), 9000);
+    }
+    setInterval(createPetal, 450);
+
+    // 5. Audio Control
+    const song = document.getElementById("bgSong");
+    const musicText = document.getElementById("musicText");
+    let isPlaying = false;
+
+    function toggleAudio() {
+      if (!isPlaying) {
+        song.play().catch(() => console.log("User interaction required"));
+        musicText.innerText = "Pause Music";
+        isPlaying = true;
+      } else {
+        song.pause();
+        musicText.innerText = "Play Music";
+        isPlaying = false;
+      }
+    }
+  </script>
+</body>
+</html>
